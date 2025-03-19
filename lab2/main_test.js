@@ -222,14 +222,14 @@ test('Test notifySelected', async (t) => {
             return true;
         });
         
-        // 測試 notifySelected
+        // test notifySelected
         app.notifySelected();
         
-        // 驗證結果
+        // verify result
         assert.strictEqual(writeCallCount, 1);
         assert.strictEqual(sendCallCount, 1);
     } finally {
-        // 無論測試成功或失敗，都確保刪除臨時文件
+        // ensure delete temp file
         if (fs.existsSync(tempFilePath)) {
             fs.unlinkSync(tempFilePath);
         }
@@ -279,7 +279,7 @@ test('Test notifySelected with multiple people', async (t) => {
         assert(notifiedPeople.includes('Jane'));
         assert(notifiedPeople.includes('Jim'));
     } finally {
-        // 無論測試成功或失敗，都確保刪除臨時文件
+        // ensure delete temp file
         if (fs.existsSync(tempFilePath)) {
             fs.unlinkSync(tempFilePath);
         }
@@ -296,7 +296,7 @@ test('Test MailSystem write', async (t) => {
 test('Test MailSystem send success path', async (t) => {
     const mailSystem = new MailSystem();
     
-    // 正確的方式：直接 mock Math.random 方法
+    // mock Math.random method
     const originalRandom = Math.random;
     Math.random = () => 1; // 強制返回 1，確保大於 0.5
     
@@ -304,7 +304,7 @@ test('Test MailSystem send success path', async (t) => {
         const result = mailSystem.send('John', 'Congrats, John!');
         assert.strictEqual(result, true);
     } finally {
-        // 恢復原始方法
+        // restore original method
         Math.random = originalRandom;
     }
 });
@@ -312,7 +312,7 @@ test('Test MailSystem send success path', async (t) => {
 test('Test MailSystem send failure path', async (t) => {
     const mailSystem = new MailSystem();
     
-    // 正確的方式：直接 mock Math.random 方法
+    // mock Math.random method
     const originalRandom = Math.random;
     Math.random = () => 0; // 強制返回 0，確保小於 0.5
     
