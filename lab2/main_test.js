@@ -1,11 +1,5 @@
 const test = require('node:test');
 const assert = require('assert');
-<<<<<<< HEAD
-const { Application, MailSystem } = require('./main');
-
-// TODO: write your tests here
-// Remember to use Stub, Mock, and Spy when necessary
-=======
 const fs = require('fs');
 const { Application, MailSystem } = require('./main');
 // TODO: write your tests here
@@ -330,4 +324,3 @@ test('Test MailSystem send failure path', async (t) => {
         Math.random = originalRandom;
     }
 });
->>>>>>> 313552024
