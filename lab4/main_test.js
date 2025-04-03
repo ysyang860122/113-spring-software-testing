@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
     // Launch the browser and open a new blank page
+
     // 註解範圍為debug用途
     const browser = await puppeteer.launch({
         // headless: false,
@@ -11,6 +12,7 @@ const puppeteer = require('puppeteer');
         // },
         slowMo: 100
     });
+
     const page = await browser.newPage();
 
     // Navigate the page to a URL
@@ -24,6 +26,7 @@ const puppeteer = require('puppeteer');
     // Click on first result in `Docs` section
     // Locate the title
     // Print the title
+
     // await page.setViewport({width: 1080, height: 1024});  
       
     await page.click('button.DocSearch.DocSearch-Button');
@@ -59,6 +62,7 @@ const puppeteer = require('puppeteer');
     const titleSelector = await page.waitForSelector('div.theme-doc-markdown.markdown header h1');
     const title = await titleSelector?.evaluate(el => el.textContent);
     console.log(title);
+
 
     // Close the browser
     await browser.close();
