@@ -7,7 +7,7 @@
 4. Repeat the process
 
 ## Test cases
-    ADD
+### ADD
 1. Add tests
 ```js
 // Calc_test.js
@@ -50,7 +50,7 @@ node --test --experimental-test-coverage                                        
 ℹ end of coverage report
 ```
 
-    SUBTRACT
+### SUBTRACT
 1. Add fail tests
 ```js
 // Calc_test.js
@@ -195,7 +195,7 @@ node --test --experimental-test-coverage                                        
 ℹ end of coverage report
 ```
 
-    MULTIPLY
+### MULTIPLY
 1. Add fail tests
 ```js
 // Calc_test.js
@@ -513,7 +513,7 @@ node --test --experimental-test-coverage                                        
 ℹ end of coverage report
 ```
 
-    DIVIDE
+### DIVIDE
 1. Add fail tests
 ```js
 // Calc_test.js
@@ -672,3 +672,166 @@ test at Calc_test.js:76:13
     operator: 'strictEqual'
   }
   ```
+2. Modify the code to pass the test
+```js
+// Calc.js
+static divide(a, b) {
+    return a / b;
+}
+```
+```shell
+node --test --experimental-test-coverage                                                            ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.689167ms)
+  ✔ 兩個負數相加 (0.078375ms)
+  ✔ 一個正數一個負數相加 (0.052667ms)
+✔ 測試加法功能 (2.023667ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.744709ms)
+  ✔ 兩個負數相減 (0.04175ms)
+  ✔ 一個正數一個負數相減 (0.040958ms)
+  ✔ 一個負數一個正數相減 (0.038083ms)
+✔ 測試減法功能 (1.006916ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.120708ms)
+  ✔ 兩個負數相乘 (0.037458ms)
+  ✔ 一個正數一個負數相乘 (0.035125ms)
+  ✔ 一個負數一個正數相乘 (0.036958ms)
+  ✔ 乘以0 (0.039167ms)
+  ✔ 乘以正無窮 (0.035625ms)
+  ✔ 乘以負無窮 (0.036208ms)
+  ✔ 乘以NaN (0.035833ms)
+  ✔ 乘以字串 (0.034958ms)
+✔ 測試乘法功能 (0.632084ms)
+▶ 測試除法功能
+  ✔ 一般除法應返回浮點數 (0.05075ms)
+  ✖ 除以零應拋出錯誤 (0.939209ms)
+  ✔ 除以NaN (0.060041ms)
+  ✖ 除以字串 (0.264792ms)
+✖ 測試除法功能 (1.460791ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 21
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79.4615
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+
+✖ failing tests:
+
+test at Calc_test.js:68:13
+✖ 除以零應拋出錯誤 (0.939209ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception (Error).
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:69:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:68:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws'
+  }
+
+test at Calc_test.js:76:13
+✖ 除以字串 (0.264792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.6666666666666666
+  - NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:77:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:76:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.6666666666666666,
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+```
+<p style="page-break-before: always;"></p>
+
+接著加上一些錯誤處理
+```js
+// Calc.js
+static divide(a, b) {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return NaN;
+    }
+    if (b === 0) {
+        throw new Error('除以零');
+    }
+    return a / b;
+}
+```
+```shell
+node --test --experimental-test-coverage                                                            ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.577875ms)
+  ✔ 兩個負數相加 (0.051583ms)
+  ✔ 一個正數一個負數相加 (0.040833ms)
+✔ 測試加法功能 (1.15875ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.466041ms)
+  ✔ 兩個負數相減 (0.040291ms)
+  ✔ 一個正數一個負數相減 (0.105542ms)
+  ✔ 一個負數一個正數相減 (0.036375ms)
+✔ 測試減法功能 (0.771084ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.128875ms)
+  ✔ 兩個負數相乘 (0.039916ms)
+  ✔ 一個正數一個負數相乘 (0.034041ms)
+  ✔ 一個負數一個正數相乘 (0.0345ms)
+  ✔ 乘以0 (0.038417ms)
+  ✔ 乘以正無窮 (0.038875ms)
+  ✔ 乘以負無窮 (0.03575ms)
+  ✔ 乘以NaN (0.036375ms)
+  ✔ 乘以字串 (0.034625ms)
+✔ 測試乘法功能 (0.648791ms)
+▶ 測試除法功能
+  ✔ 一般除法應返回浮點數 (0.058458ms)
+  ✔ 除以零應拋出錯誤 (0.367042ms)
+  ✔ 除以NaN (0.037459ms)
+  ✔ 除以字串 (0.038209ms)
+✔ 測試除法功能 (0.631459ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 78.898958
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+```
+# Thanks for reading!
