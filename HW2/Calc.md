@@ -384,7 +384,6 @@ test at Calc_test.js:57:13
       at async Test.run (node:internal/test_runner/test:980:9)
       at async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
 ```
-<p style="page-break-before: always;"></p>
 
 2. Modify the code to pass the test
 ```js
@@ -770,8 +769,6 @@ test at Calc_test.js:76:13
     operator: 'strictEqual'
   }
 ```
-<p style="page-break-before: always;"></p>
-
 接著加上一些錯誤處理
 ```js
 // Calc.js
@@ -823,6 +820,186 @@ node --test --experimental-test-coverage                                        
 ℹ skipped 0
 ℹ todo 0
 ℹ duration_ms 78.898958
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+```
+    最後幫ADD跟SUBTRACT加上NAN跟無窮大的test
+```js
+// Calc.js
+// static add(a, b) {
+await t.test('與NaN相加', () => {
+    assert.strictEqual(Calc.add(2, NaN), NaN);
+});
+await t.test('與字串相加', () => {
+    assert.strictEqual(Calc.add(2, '3'), NaN);
+});
+await t.test('與無窮大相加', () => {
+    assert.strictEqual(Calc.add(2, Infinity), Infinity);
+    assert.strictEqual(Calc.add(2, -Infinity), -Infinity);
+});
+```
+```shell
+node --test --experimental-test-coverage                                                                                                                                                     
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.789542ms)
+  ✔ 兩個負數相加 (0.054708ms)
+  ✔ 一個正數一個負數相加 (0.046375ms)
+  ✔ 與0相加 (0.044375ms)
+  ✔ 與NaN相加 (0.361167ms)
+  ✖ 與字串相加 (0.580708ms)
+  ✔ 與無窮大相加 (0.041459ms)
+✖ 測試加法功能 (2.682041ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.101959ms)
+  ✔ 兩個負數相減 (0.036542ms)
+  ✔ 一個正數一個負數相減 (0.031625ms)
+  ✔ 一個負數一個正數相減 (0.030666ms)
+  ✔ 與0相減 (0.032375ms)
+  ✔ 與NaN相減 (0.032041ms)
+  ✖ 與字串相減 (0.056292ms)
+  ✔ 與無窮大相減 (0.037083ms)
+✖ 測試減法功能 (0.5505ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.052958ms)
+  ✔ 兩個負數相乘 (0.031708ms)
+  ✔ 一個正數一個負數相乘 (0.032959ms)
+  ✔ 一個負數一個正數相乘 (0.031458ms)
+  ✔ 乘以0 (0.031125ms)
+  ✔ 乘以正無窮 (0.030833ms)
+  ✔ 乘以負無窮 (0.360458ms)
+  ✔ 乘以NaN (0.03425ms)
+  ✔ 乘以字串 (0.032584ms)
+✔ 測試乘法功能 (0.844083ms)
+▶ 測試除法功能
+  ✔ 一般除法應返回浮點數 (0.053417ms)
+  ✔ 負數除法 (0.036958ms)
+  ✔ 除以零應拋出錯誤 (0.190583ms)
+  ✔ 0除以任何數 (0.036292ms)
+  ✔ 除以NaN (0.03375ms)
+  ✔ 除以字串 (0.034083ms)
+  ✔ 除以無窮大 (0.0855ms)
+✔ 測試除法功能 (0.651417ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 31
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.164459
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+
+✖ failing tests:
+
+test at Calc_test.js:22:13
+✖ 與字串相加 (0.580708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '23' !== NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:23:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:22:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '23',
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+
+test at Calc_test.js:51:13
+✖ 與字串相減 (0.056292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  -1 !== NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:52:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:51:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+```
+最後完成所有test
+```shell
+node --test --experimental-test-coverage                                                                                                                                                             ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.312458ms)
+  ✔ 兩個負數相加 (0.049333ms)
+  ✔ 一個正數一個負數相加 (0.039875ms)
+  ✔ 與0相加 (0.040458ms)
+  ✔ 與NaN相加 (0.394917ms)
+  ✔ 與字串相加 (0.109875ms)
+  ✔ 與無窮大相加 (0.047042ms)
+✔ 測試加法功能 (1.554708ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.125291ms)
+  ✔ 兩個負數相減 (0.044292ms)
+  ✔ 一個正數一個負數相減 (0.036833ms)
+  ✔ 一個負數一個正數相減 (0.034208ms)
+  ✔ 與0相減 (0.041542ms)
+  ✔ 與NaN相減 (0.03525ms)
+  ✔ 與字串相減 (0.03575ms)
+  ✔ 與無窮大相減 (0.036417ms)
+✔ 測試減法功能 (0.609292ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.056166ms)
+  ✔ 兩個負數相乘 (0.036166ms)
+  ✔ 一個正數一個負數相乘 (0.037875ms)
+  ✔ 一個負數一個正數相乘 (0.03875ms)
+  ✔ 乘以0 (0.037542ms)
+  ✔ 乘以正無窮 (0.040417ms)
+  ✔ 乘以負無窮 (0.037125ms)
+  ✔ 乘以NaN (0.04075ms)
+  ✔ 乘以字串 (0.087792ms)
+✔ 測試乘法功能 (1.064708ms)
+▶ 測試除法功能
+  ✔ 一般除法應返回浮點數 (0.052375ms)
+  ✔ 負數除法 (0.032208ms)
+  ✔ 除以零應拋出錯誤 (0.2125ms)
+  ✔ 0除以任何數 (0.032833ms)
+  ✔ 除以NaN (0.032958ms)
+  ✔ 除以字串 (0.03125ms)
+  ✔ 除以無窮大 (0.030584ms)
+✔ 測試除法功能 (0.604583ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57.36075
 ℹ start of coverage report
 ℹ ---------------------------------------------------------------
 ℹ file           | line % | branch % | funcs % | uncovered lines
