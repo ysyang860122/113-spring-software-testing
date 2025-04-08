@@ -11,6 +11,8 @@ class Calc {
         }
         return a * b;
     }
+    static divide(a, b) {
+    }
 }
 
 module.exports = Calc;

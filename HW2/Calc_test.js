@@ -59,3 +59,22 @@ test('測試乘法功能', async (t) => {
     });
 });
 
+test('測試除法功能', async (t) => {
+    // Encode decision：除法應該返回浮點數結果
+    await t.test('一般除法應返回浮點數', () => {
+        assert.strictEqual(Calc.divide(10, 3), 3.3333333333333333);
+    });
+    // Encode decision：除以零應該拋出錯誤
+    await t.test('除以零應拋出錯誤', () => {
+        assert.throws(() => {
+            Calc.divide(5, 0);
+        }, Error);
+    });
+    await t.test('除以NaN', () => {
+        assert.strictEqual(Calc.divide(2, NaN), NaN);
+    });
+    await t.test('除以字串', () => {
+        assert.strictEqual(Calc.divide(2, '3'), NaN);
+    });
+    
+});

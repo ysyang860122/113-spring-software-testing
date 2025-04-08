@@ -512,3 +512,163 @@ node --test --experimental-test-coverage                                        
 ℹ ---------------------------------------------------------------
 ℹ end of coverage report
 ```
+
+    DIVIDE
+1. Add fail tests
+```js
+// Calc_test.js
+test('測試除法功能', async (t) => {
+    // Encode decision：除法應該返回浮點數結果
+    await t.test('一般除法應返回浮點數', () => {
+        assert.strictEqual(Calc.divide(10, 3), 3.3333333333333333);
+    });
+    // Encode decision：除以零應該拋出錯誤
+    await t.test('除以零應拋出錯誤', () => {
+        assert.throws(() => {
+            Calc.divide(5, 0);
+        }, Error);
+    });
+    await t.test('除以NaN', () => {
+        assert.strictEqual(Calc.divide(2, NaN), NaN);
+    });
+    await t.test('除以字串', () => {
+        assert.strictEqual(Calc.divide(2, '3'), NaN);
+    });
+    
+});
+```
+```shell
+node --test --experimental-test-coverage                                                            ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.675583ms)
+  ✔ 兩個負數相加 (0.051208ms)
+  ✔ 一個正數一個負數相加 (0.040417ms)
+✔ 測試加法功能 (1.386959ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.388959ms)
+  ✔ 兩個負數相減 (0.039541ms)
+  ✔ 一個正數一個負數相減 (0.038958ms)
+  ✔ 一個負數一個正數相減 (0.035083ms)
+✔ 測試減法功能 (0.624208ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.110375ms)
+  ✔ 兩個負數相乘 (0.037708ms)
+  ✔ 一個正數一個負數相乘 (0.037125ms)
+  ✔ 一個負數一個正數相乘 (0.034208ms)
+  ✔ 乘以0 (0.036375ms)
+  ✔ 乘以正無窮 (0.043125ms)
+  ✔ 乘以負無窮 (0.035ms)
+  ✔ 乘以NaN (0.032625ms)
+  ✔ 乘以字串 (0.032417ms)
+✔ 測試乘法功能 (0.635458ms)
+▶ 測試除法功能
+  ✖ 一般除法應返回浮點數 (0.663833ms)
+  ✖ 除以零應拋出錯誤 (0.310708ms)
+  ✖ 除以NaN (0.0585ms)
+  ✖ 除以字串 (0.048333ms)
+✖ 測試除法功能 (1.229334ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 19
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79.413458
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+
+✖ failing tests:
+
+test at Calc_test.js:64:13
+✖ 一般除法應返回浮點數 (0.663833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 3.3333333333333335
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:65:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:64:13)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+      at Test.postRun (node:internal/test_runner/test:1090:19) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 3.3333333333333335,
+    operator: 'strictEqual'
+  }
+
+test at Calc_test.js:68:13
+✖ 除以零應拋出錯誤 (0.310708ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception (Error).
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:69:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:68:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws'
+  }
+
+test at Calc_test.js:73:13
+✖ 除以NaN (0.0585ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:74:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:73:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+
+test at Calc_test.js:76:13
+✖ 除以字串 (0.048333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:77:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:76:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+  ```
