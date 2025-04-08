@@ -7,8 +7,8 @@
 4. Repeat the process
 
 ## Test cases
-- ADD
-    1. Add tests
+    ADD
+1. Add tests
 ```shell
 node --test --experimental-test-coverage                                                                                                               ─╯
 ▶ 測試加法功能
@@ -35,8 +35,10 @@ node --test --experimental-test-coverage                                        
 ℹ ---------------------------------------------------------------
 ℹ end of coverage report
 ```
-- SUBTRACT
-    2-1. Add fail tests
+<p style="page-break-before: always;"></p>
+
+    SUBTRACT
+1. Add fail tests
 ```shell
 node --test --experimental-test-coverage                                                                                                               ─╯
 ▶ 測試加法功能
@@ -121,10 +123,39 @@ test at Calc_test.js:27:13
       at async Test.run (node:internal/test_runner/test:980:9)
       at async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
 ```
-    2-2. Modify the code to pass the test
+<p style="page-break-before: always;"></p>
+
+2. Modify the code to pass the test
+
 ```shell
 node --test --experimental-test-coverage                                                                                                               ─╯
 ▶ 測試加法功能
-  ✔ 兩個正數相加 (0.5545ms)
-  ✔ 兩個負數相加 (0.119916ms)
-  ✔ 一個正數一個負數相加 (0.042042ms)
+  ✔ 兩個正數相加 (0.563333ms)
+  ✔ 兩個負數相加 (0.128583ms)
+  ✔ 一個正數一個負數相加 (0.044709ms)
+✔ 測試加法功能 (1.143541ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.052542ms)
+  ✔ 兩個負數相減 (0.411959ms)
+  ✔ 一個正數一個負數相減 (0.043625ms)
+  ✔ 一個負數一個正數相減 (0.037708ms)
+✔ 測試減法功能 (0.675083ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 66.933
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+```
