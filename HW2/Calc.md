@@ -49,7 +49,6 @@ node --test --experimental-test-coverage                                        
 ℹ ---------------------------------------------------------------
 ℹ end of coverage report
 ```
-<p style="page-break-before: always;"></p>
 
     SUBTRACT
 1. Add fail tests
@@ -154,7 +153,6 @@ test at Calc_test.js:27:13
       at async Test.run (node:internal/test_runner/test:980:9)
       at async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
 ```
-<p style="page-break-before: always;"></p>
 
 2. Modify the code to pass the test
 ```js
@@ -196,7 +194,6 @@ node --test --experimental-test-coverage                                        
 ℹ ---------------------------------------------------------------
 ℹ end of coverage report
 ```
-<p style="page-break-before: always;"></p>
 
     MULTIPLY
 1. Add fail tests
@@ -392,4 +389,126 @@ test at Calc_test.js:57:13
 2. Modify the code to pass the test
 ```js
 // Calc.js
+static multiply(a, b) {
+    return a * b;
+}
+```
+```shell
+node --test --experimental-test-coverage                                                                                                               ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.553625ms)
+  ✔ 兩個負數相加 (0.131125ms)
+  ✔ 一個正數一個負數相加 (0.043417ms)
+✔ 測試加法功能 (1.135167ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.050792ms)
+  ✔ 兩個負數相減 (0.041875ms)
+  ✔ 一個正數一個負數相減 (0.038083ms)
+  ✔ 一個負數一個正數相減 (0.035333ms)
+✔ 測試減法功能 (0.688625ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.050417ms)
+  ✔ 兩個負數相乘 (0.035208ms)
+  ✔ 一個正數一個負數相乘 (0.03375ms)
+  ✔ 一個負數一個正數相乘 (0.032166ms)
+  ✔ 乘以0 (0.036708ms)
+  ✔ 乘以正無窮 (0.03525ms)
+  ✔ 乘以負無窮 (0.091416ms)
+  ✔ 乘以NaN (0.035375ms)
+  ✖ 乘以字串 (0.480958ms)
+✖ 測試乘法功能 (1.073292ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 62.230208
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
+
+✖ failing tests:
+
+test at Calc_test.js:57:13
+✖ 乘以字串 (0.480958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== NaN
+  
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:58:16)
+      at Test.runInAsyncScope (node:async_hooks:211:14)
+      at Test.run (node:internal/test_runner/test:979:25)
+      at Test.start (node:internal/test_runner/test:877:17)
+      at TestContext.test (node:internal/test_runner/test:307:20)
+      at TestContext.<anonymous> (/Users/ysyang/Documents/NYCU/113-2/Software_Testing/113-spring-software-testing/HW2/Calc_test.js:57:13)
+      at async Test.run (node:internal/test_runner/test:980:9)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:677:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: NaN,
+    operator: 'strictEqual'
+  }
+```
+這時候發現，如果a或b不是數字，就要回傳NaN，所以需要修改
+```js
+// Calc.js
+static multiply(a, b) {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return NaN;
+    }
+    return a * b;
+}
+```
+```shell
+node --test --experimental-test-coverage                                                                                                               ─╯
+▶ 測試加法功能
+  ✔ 兩個正數相加 (0.312333ms)
+  ✔ 兩個負數相加 (0.126083ms)
+  ✔ 一個正數一個負數相加 (0.043291ms)
+✔ 測試加法功能 (0.86325ms)
+▶ 測試減法功能
+  ✔ 兩個正數相減 (0.048042ms)
+  ✔ 兩個負數相減 (0.040583ms)
+  ✔ 一個正數一個負數相減 (0.036333ms)
+  ✔ 一個負數一個正數相減 (0.033875ms)
+✔ 測試減法功能 (0.58325ms)
+▶ 測試乘法功能
+  ✔ 兩個正數相乘 (0.052833ms)
+  ✔ 兩個負數相乘 (0.033042ms)
+  ✔ 一個正數一個負數相乘 (0.032917ms)
+  ✔ 一個負數一個正數相乘 (0.034ms)
+  ✔ 乘以0 (0.036916ms)
+  ✔ 乘以正無窮 (0.037917ms)
+  ✔ 乘以負無窮 (0.095875ms)
+  ✔ 乘以NaN (0.035042ms)
+  ✔ 乘以字串 (0.037625ms)
+✔ 測試乘法功能 (0.608375ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.879375
+ℹ start of coverage report
+ℹ ---------------------------------------------------------------
+ℹ file           | line % | branch % | funcs % | uncovered lines
+ℹ ---------------------------------------------------------------
+ℹ Calc_test.js   | 100.00 |   100.00 |  100.00 | 
+ℹ Calc.js        | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ all files      | 100.00 |   100.00 |  100.00 | 
+ℹ ---------------------------------------------------------------
+ℹ end of coverage report
 ```
